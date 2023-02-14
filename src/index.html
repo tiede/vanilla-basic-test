@@ -17,24 +17,8 @@
 <body>
   <main>
     <h1>Vanilla JavaScript App</h1>
-    <div>Temperature <div id="temperature"></div></div>
+    <p>Hello world</p>
   </main>
-  <script>
-    $( document ).ready(function() {
-      fetch('https://api.weatherapi.com/v1/current.json?key=3de6c9f8c2504acaa36202353230902&q=Copenhagen&aqi=no').then(function (response) {
-        // The API call was successful!
-        return response.json();
-      }).then(function (data) {
-        // This is the JSON from our response
-        console.log(data);
-        var temperature = data.current.temp_c;
-        $('#temperature').text(temperature);
-      }).catch(function (err) {
-        // There was an error
-        console.warn('Something went wrong.', err);
-      });
-    });
-  </script>
 </body>
 
 </html>

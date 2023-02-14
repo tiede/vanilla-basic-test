@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Vanilla JavaScript App</title>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.3.js"
+    integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+  <main>
+    <h1>Vanilla JavaScript App</h1>
+
+    <div>
+      <label for="city">Which city would you like to get weather data for:</label>
+      <input type="text" id="city" name="city">
+      <button id="submit">Fetch</button>
+    </div>
+
+    <hr />
+
+    <div>City <span id="city-text"></span></div>
+    <div>Temperature <span id="temperature-text"></span></div>
+    <div>Temperature (feels like) <span id="temperature-feels-like-text"></span></div>
+  </main>
+  <script>
+
+    $('#submit').click(function() {
+      var city = $('#city').val();
+      fetchCity(city);
+    });
+
+    function fetchCity(city)  {
+      fetch('https://api.weatherapi.com/v1/current.json?key=3de6c9f8c2504acaa36202353230902&q=' + city + '&aqi=no').then(function (response) {
+        // The API call was successful!
+        return response.json();
+      }).then(function (data) {
+        // This is the JSON from our response
+        console.log(data);
+        var temperature = data.current.temp_c;
+        var feelsLike = data.current.feelslike_c;
+        $('#temperature-text').text(temperature);
+        $('#temperature-feels-like-text').text(feelsLike);
+        $('#city-text').text(city);
+      }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+      });      
+    };
+
+    // $( document ).ready(function() {
+    //   fetch('https://api.weatherapi.com/v1/current.json?key=3de6c9f8c2504acaa36202353230902&q=Copenhagen&aqi=no').then(function (response) {
+    //     // The API call was successful!
+    //     return response.json();
+    //   }).then(function (data) {
+    //     // This is the JSON from our response
+    //     console.log(data);
+    //     var temperature = data.current.temp_c;
+    //     $('#temperature').text(temperature);
+    //   }).catch(function (err) {
+    //     // There was an error
+    //     console.warn('Something went wrong.', err);
+    //   });
+    // });
+  </script>
+</body>
+
+</html>
