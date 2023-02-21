@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="styles.css">
   <title>Vanilla JavaScript App</title>
 
+  <!-- This will include jquery library -->
+  <!-- It makes it a lot easier to manipulate the DOM -->
   <script
     src="https://code.jquery.com/jquery-3.6.3.js"
     integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
@@ -19,15 +21,20 @@
     <h1>Vanilla JavaScript App</h1>
     <div>Temperature <div id="temperature"></div></div>
   </main>
+  <!-- Script -->
   <script>
+    // When the document has loaded
     $( document ).ready(function() {
+      // This will get the json from the weather api
       fetch('https://api.weatherapi.com/v1/current.json?key=3de6c9f8c2504acaa36202353230902&q=Copenhagen&aqi=no').then(function (response) {
         // The API call was successful!
         return response.json();
       }).then(function (data) {
         // This is the JSON from our response
         console.log(data);
+        // And get the temperature
         var temperature = data.current.temp_c;
+        // And set the text of the div with the id temperature
         $('#temperature').text(temperature);
       }).catch(function (err) {
         // There was an error
